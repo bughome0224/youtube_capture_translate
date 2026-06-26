@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YouTube截图翻译 - 设置</title>
+    <link rel="stylesheet" href="./options.css" />
+  </head>
+  <body>
+    <main class="options">
+      <header>
+        <h1>YouTube截图翻译</h1>
+        <p>配置腾讯云 OCR 与有道翻译 API 密钥。密钥仅保存在本机浏览器中。</p>
+      </header>
+
+      <section class="card">
+        <h2>截图快捷键</h2>
+        <p class="help">
+          在 YouTube 页面按 <strong>Alt+Shift+S</strong>，或点击播放器控制栏中的「译」按钮，即可框选区域并翻译。
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>隐私说明</h2>
+        <p>
+          截图将上传至腾讯云进行文字识别，识别文本将发送至有道智云进行翻译。请勿在敏感场景使用。
+        </p>
+        <label class="checkbox">
+          <input id="privacyAccepted" type="checkbox" />
+          我已阅读并同意上述说明
+        </label>
+      </section>
+
+      <section class="card">
+        <h2>腾讯云 OCR</h2>
+        <label>
+          SecretId
+          <input id="tencentSecretId" type="password" autocomplete="off" />
+        </label>
+        <label>
+          SecretKey
+          <input id="tencentSecretKey" type="password" autocomplete="off" />
+        </label>
+        <p class="help">
+          开通地址：
+          <a href="https://console.cloud.tencent.com/ocr" target="_blank" rel="noreferrer">
+            腾讯云文字识别控制台
+          </a>
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>有道智云翻译</h2>
+        <label>
+          应用 ID（appKey）
+          <input id="youdaoAppKey" type="text" autocomplete="off" placeholder="控制台「应用总览」中的 应用ID" />
+        </label>
+        <label>
+          应用密钥（appSecret）
+          <input id="youdaoAppSecret" type="password" autocomplete="off" placeholder="与应用 ID 配对的密钥" />
+        </label>
+        <p class="help">
+          1. 打开
+          <a href="https://ai.youdao.com/" target="_blank" rel="noreferrer">有道智云控制台</a>
+          → 创建应用 → 勾选开通「文本翻译」<br />
+          2. 在「应用总览」复制 <strong>应用ID</strong> 和 <strong>应用密钥</strong>（勿填反）<br />
+          3. 新建应用后若报 108 错误，等待 5–10 分钟再试
+        </p>
+      </section>
+
+      <footer class="actions">
+        <button id="save" type="button">保存设置</button>
+        <span id="save-status" class="save-status"></span>
+      </footer>
+    </main>
+    <script type="module" src="./options.ts"></script>
+  </body>
+</html>
