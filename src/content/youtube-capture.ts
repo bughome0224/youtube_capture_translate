@@ -3,6 +3,7 @@ import type { CaptureResult, PlayerRect } from '../lib/types';
 const BUTTON_ID = 'yt-capture-translate-button';
 const MODAL_ID = 'yt-capture-translate-modal';
 const MIN_SELECTION_SIZE = 8;
+const SELECTION_OVERLAY_BACKGROUND = 'rgba(0, 0, 0, 0.28)';
 const VIDEO_SELECTORS = [
   'video.html5-main-video',
   '#movie_player video',
@@ -150,7 +151,7 @@ function createSelectionOverlay(): {
     'inset: 0',
     'z-index: 2147483647',
     'cursor: crosshair',
-    'background: rgba(0, 0, 0, 0.28)',
+    `background: ${SELECTION_OVERLAY_BACKGROUND}`,
     'user-select: none',
   ].join(';');
 
@@ -175,7 +176,7 @@ function createSelectionOverlay(): {
     'position: fixed',
     'display: none',
     'border: 2px solid #ef4444',
-    'background: rgba(239, 68, 68, 0.14)',
+    'background: transparent',
     'box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.42)',
     'pointer-events: none',
   ].join(';');
@@ -283,6 +284,7 @@ function selectCaptureRegion(): Promise<PlayerRect> {
       isDragging = true;
       startX = event.clientX;
       startY = event.clientY;
+      overlay.style.background = 'transparent';
       toolbar.style.display = 'none';
       selectionBox.style.display = 'block';
       selectionRect = setSelectionBox(selectionBox, startX, startY, startX, startY);
@@ -315,6 +317,7 @@ function selectCaptureRegion(): Promise<PlayerRect> {
         selectionRect.width < MIN_SELECTION_SIZE ||
         selectionRect.height < MIN_SELECTION_SIZE
       ) {
+        overlay.style.background = SELECTION_OVERLAY_BACKGROUND;
         selectionBox.style.display = 'none';
         toolbar.style.display = 'none';
         tip.textContent = '区域太小，请重新拖拽选择';
